@@ -1,4 +1,5 @@
-import React, {useContext} from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -8,7 +9,8 @@ import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
 import HouseConfigItem from './HouseConfigItem';
 import { makeStyles } from '@material-ui/core/styles';
-import CityBuilderContext from "../../context/cityBuilderContext";
+import {addHouseConfig} from '../../actions/cityBuilderActions';
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -29,11 +31,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HousesConfig = () => {
-  const classes = useStyles();
+const defaultConfig = {
+  id: new Date().getTime(),
+  name: '',
+  color: 'DarkGrey',
+  floorsNumber: 2
+};
 
-  const cityBuilderContext = useContext(CityBuilderContext);
-  const {addHouseConfig, housesList} = cityBuilderContext;
+const HousesConfig = ({housesList, addHouseConfig}) => {
+  const classes = useStyles();
 
   return (
     <Paper className={classes.paper}>
@@ -64,5 +70,18 @@ const HousesConfig = () => {
   )
 };
 
-export default React.memo(HousesConfig);
+HousesConfig.propTypes = {
+  housesList: PropTypes.array.isRequired,
+  addHouseConfig: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  housesList: state.housesList
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addHouseConfig: () => dispatch(addHouseConfig(defaultConfig))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HousesConfig);
 

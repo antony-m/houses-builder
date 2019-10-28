@@ -3,9 +3,9 @@ import {
   ADD_CONFIG,
   REMOVE_CONFIG,
   UPDATE_CONFIG
-} from './actionTypes';
+} from '../actions/actionTypes';
 
-export default (state, action) => {
+const cityBuilderReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_CONFIG:
       return {
@@ -20,22 +20,24 @@ export default (state, action) => {
     case REMOVE_CONFIG:
       return {
         ...state,
-        housesList: state.housesList.filter(house => house.id !== action.payload)
+        housesList: state.housesList.filter(house => house.id !== action.id)
       };
     case UPDATE_CONFIG:
       return {
         ...state,
         housesList: state.housesList.map(house => {
-          if (house.id !== action.payload.id) {
+          if (house.id !== action.configPart.id) {
             return house;
           }
           return {
             ...house,
-            [action.payload.name]: action.payload.targetValue
+            [action.configPart.name]: action.configPart.targetValue
           }
         })
       };
     default:
-      return state;
+      return {housesList: []};
   }
 };
+
+export default cityBuilderReducer;

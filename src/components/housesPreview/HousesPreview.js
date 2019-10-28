@@ -1,7 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import House from './House';
-import CityBuilderContext from "../../context/cityBuilderContext";
+import {connect} from 'react-redux';
+import PropTypes from "prop-types";
 
 const Container = styled.section`
   display: grid;
@@ -10,11 +11,7 @@ const Container = styled.section`
   grid-gap: 1rem;
 `;
 
-const HousesPreview = () => {
-  const cityBuilderContext = useContext(CityBuilderContext);
-
-  const {housesList} = cityBuilderContext;
-
+const HousesPreview = ({housesList}) => {
   return <Container>
     {housesList.map(house => (
       <House key={house.id} {...house}/>
@@ -22,4 +19,14 @@ const HousesPreview = () => {
   </Container>
 };
 
-export default HousesPreview;
+HousesPreview.propTypes = {
+  housesList: PropTypes.array.isRequired
+};
+
+const mapStateToProps = (state) => {
+  return {
+    housesList: state.housesList
+  }
+};
+
+export default connect(mapStateToProps)(HousesPreview);
