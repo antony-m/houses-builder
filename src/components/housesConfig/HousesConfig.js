@@ -31,15 +31,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const defaultConfig = {
-  id: new Date().getTime(),
-  name: '',
-  color: 'DarkGrey',
-  floorsNumber: 2
-};
-
 const HousesConfig = ({housesList, addHouseConfig}) => {
   const classes = useStyles();
+
+  const defaultConfig = {
+    id: new Date().getTime(),
+    name: '',
+    color: 'DarkGrey',
+    floorsNumber: 2
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -60,7 +60,7 @@ const HousesConfig = ({housesList, addHouseConfig}) => {
             color="default"
             className={classes.button}
             startIcon={<HomeIcon />}
-            onClick={addHouseConfig}
+            onClick={() => addHouseConfig(defaultConfig)}
           >
             Build a new house
           </Button>
@@ -80,7 +80,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addHouseConfig: () => dispatch(addHouseConfig(defaultConfig))
+  addHouseConfig: (defaultConfig) => dispatch(addHouseConfig(defaultConfig))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HousesConfig);

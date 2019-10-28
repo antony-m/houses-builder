@@ -155,7 +155,7 @@ class HouseConfigItem extends PureComponent {
   }
 }
 
-HouseConfigItem.whyDidYouRender = true;
+//HouseConfigItem.whyDidYouRender = true;
 
 HouseConfigItem.propTypes = {
   name: PropTypes.string.isRequired,
