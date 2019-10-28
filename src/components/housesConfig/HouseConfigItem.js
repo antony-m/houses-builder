@@ -155,6 +155,8 @@ class HouseConfigItem extends PureComponent {
   }
 }
 
+HouseConfigItem.whyDidYouRender = true;
+
 HouseConfigItem.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
@@ -165,13 +167,9 @@ HouseConfigItem.propTypes = {
   updateHouseConfig: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  housesList: state.housesList
-});
-
 const mapDispatchToProps = (dispatch) => ({
   removeHouseConfig: id => dispatch(removeHouseConfig(id)),
   updateHouseConfig: configPart => dispatch(updateHouseConfigAction(configPart))
 });
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(HouseConfigItem));
+export default withStyles(styles)(connect(null, mapDispatchToProps)(HouseConfigItem));

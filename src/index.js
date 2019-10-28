@@ -5,6 +5,9 @@ import App from './App';
 import configureStore from "./store/configureStore";
 import {Provider} from "react-redux";
 import {getHousesConfig} from "./actions/cityBuilderActions";
+const whyDidYouRender = require('@welldone-software/why-did-you-render/dist/no-classes-transpile/umd/whyDidYouRender.min.js');
+
+whyDidYouRender(React);
 
 const store = configureStore({});
 
